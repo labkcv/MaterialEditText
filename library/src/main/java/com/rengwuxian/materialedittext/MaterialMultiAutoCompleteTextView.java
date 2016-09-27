@@ -37,6 +37,8 @@ import com.nineoldandroids.animation.ObjectAnimator;
 import com.rengwuxian.materialedittext.validation.METLengthChecker;
 import com.rengwuxian.materialedittext.validation.METValidator;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -48,6 +50,7 @@ import java.util.regex.Pattern;
 public class MaterialMultiAutoCompleteTextView extends AppCompatMultiAutoCompleteTextView {
 
   @IntDef({FLOATING_LABEL_NONE, FLOATING_LABEL_NORMAL, FLOATING_LABEL_HIGHLIGHT})
+  @Retention(RetentionPolicy.SOURCE)
   public @interface FloatingLabelType {
   }
 
