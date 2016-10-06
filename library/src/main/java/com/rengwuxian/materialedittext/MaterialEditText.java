@@ -1503,7 +1503,14 @@ public class MaterialEditText extends AppCompatEditText
             //else if(!isEnabled())
             else if(false)
             { // disabled
-                paint.setColor(underlineColor != -1 ? underlineColor : baseColor & 0x00ffffff | MaterialEditText.GREY_ALPHA_600);
+                if(underlineColor != -1)
+                {
+                    paint.setColor(underlineColor);
+                }
+                else
+                {
+                    paint.setColor(baseColor & 0x00ffffff | MaterialEditText.GREY_ALPHA_600);
+                }
                 float interval = getPixel(1);
                 for(float xOffset = 0; xOffset < getWidth(); xOffset += interval * 3)
                 {
@@ -1517,7 +1524,14 @@ public class MaterialEditText extends AppCompatEditText
             }
             else
             { // normal
-                paint.setColor(underlineColor != -1 ? underlineColor : baseColor & 0x00ffffff | 0x1E000000);
+                if(underlineColor != -1)
+                {
+                    paint.setColor(underlineColor);
+                }
+                else
+                {
+                    paint.setColor(baseColor & 0x00ffffff | 0x1E000000);
+                }
                 canvas.drawRect(startX, lineStartY, endX, lineStartY + getPixel(1), paint);
             }
         }
@@ -1530,7 +1544,14 @@ public class MaterialEditText extends AppCompatEditText
         // draw the characters counter
         if((hasFocus() && hasCharactersCounter()) || !isCharactersCountValid())
         {
-            textPaint.setColor(isCharactersCountValid() ? (baseColor & 0x00ffffff | MaterialEditText.GREY_ALPHA_600) : errorColor);
+            if(isCharactersCountValid())
+            {
+                textPaint.setColor((baseColor & 0x00ffffff | MaterialEditText.GREY_ALPHA_600));
+            }
+            else
+            {
+                textPaint.setColor(errorColor);
+            }
             String charactersCounterText = getCharactersCounterText();
             canvas.drawText(charactersCounterText, isRTL() ? startX : endX - textPaint.measureText(charactersCounterText), lineStartY + bottomSpacing + relativeHeight, textPaint);
         }
@@ -1540,7 +1561,21 @@ public class MaterialEditText extends AppCompatEditText
         {
             if(tempErrorText != null || ((helperTextAlwaysShown || hasFocus()) && !TextUtils.isEmpty(helperText)))
             { // error text or helper text
-                textPaint.setColor(tempErrorText != null ? errorColor : helperTextColor != -1 ? helperTextColor : (baseColor & 0x00ffffff | MaterialEditText.GREY_ALPHA_600));
+                if(tempErrorText != null)
+                {
+                    textPaint.setColor(errorColor);
+                }
+                else
+                {
+                    if(helperTextColor != -1)
+                    {
+                        textPaint.setColor(helperTextColor);
+                    }
+                    else
+                    {
+                        textPaint.setColor((baseColor & 0x00ffffff | MaterialEditText.GREY_ALPHA_600));
+                    }
+                }
                 canvas.save();
                 if(isRTL())
                 {
